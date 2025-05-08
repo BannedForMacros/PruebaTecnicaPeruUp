@@ -3,28 +3,26 @@ import TOTAL from '@salesforce/apex/SeguimientoStats.totalTareas';
 import COMPLETADAS from '@salesforce/apex/SeguimientoStats.tareasCompletadas';
 
 export default class SeguimientoProgress extends LightningElement {
-    @api recordId;          // el Id del Contacto
+    @api recordId;          
     @track total = 0;
     @track completadas = 0;
 
-    // Apex: número total
     @wire(TOTAL, { contactId: '$recordId' })
     wiredTotal({ data, error }) {
         if (data) {
             this.total = data;
         } else if (error) {
-            // Manejo de errores
+            
             console.error('Error al obtener el total de tareas:', error);
         }
     }
 
-    // Apex: tareas completadas
     @wire(COMPLETADAS, { contactId: '$recordId' })
     wiredComp({ data, error }) {
         if (data) {
             this.completadas = data;
         } else if (error) {
-            // Manejo de errores
+            
             console.error('Error al obtener las tareas completadas:', error);
         }
     }

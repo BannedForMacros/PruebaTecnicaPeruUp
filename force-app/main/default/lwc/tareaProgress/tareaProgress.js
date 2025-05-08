@@ -5,15 +5,14 @@ import { refreshApex } from '@salesforce/apex';
 
 export default class TareaProgress extends LightningElement {
 
-    @api recordId;         // Id del contacto
+    @api recordId;         
     total = 0;
     done  = 0;
 
-    wiredData;             // para refreshApex
+    wiredData;             
     channel     = '/data/TaskChangeEvent';
     subscription;
 
-    /* ---------- APEX ---------- */
     @wire(getTotales, { contactId: '$recordId' })
     wiredTotales(value) {
         this.wiredData = value;
@@ -26,7 +25,6 @@ export default class TareaProgress extends LightningElement {
         }
     }
 
-    /* ---------- CDC ---------- */
     connectedCallback() {
         this.subscribeCdc();
         onError(err => console.error('EMP API', err));
@@ -44,7 +42,6 @@ export default class TareaProgress extends LightningElement {
         }).then(resp => { this.subscription = resp; });
     }
 
-    /* ---------- getters ---------- */
     get percent()     { return this.total ? Math.round(100 * this.done / this.total) : 0; }
     get widthStyle()  { return `width:${this.percent}%;`; }
 }

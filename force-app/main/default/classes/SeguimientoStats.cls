@@ -4,7 +4,7 @@ public with sharing class SeguimientoStats {
     public static Integer totalTareas(Id contactId) {
         return [
             SELECT COUNT()
-            FROM  Seguimiento__c         //  ← 2 guiones bajos
+            FROM  Seguimiento__c         
             WHERE Contacto__c = :contactId
         ];
     }

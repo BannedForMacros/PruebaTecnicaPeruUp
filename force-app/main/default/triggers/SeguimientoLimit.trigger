@@ -1,6 +1,5 @@
 trigger SeguimientoLimit on Seguimiento__c (before insert, before update) {
 
-    /* 1 ▪ contactos con registros Pendiente que vienen en el trigger */
     Set<Id> contactIds = new Set<Id>();
     for (Seguimiento__c seg : Trigger.new) {
         if (seg.Contacto__c != null &&
@@ -10,7 +9,6 @@ trigger SeguimientoLimit on Seguimiento__c (before insert, before update) {
     }
     if (contactIds.isEmpty()) return;
 
-    /* 2 ▪ conteo actual de pendientes por contacto */
     Map<Id,Integer> pendientesPorContacto = new Map<Id,Integer>();
     for (AggregateResult ar :
         [SELECT   Contacto__c   contactId,
@@ -26,7 +24,6 @@ trigger SeguimientoLimit on Seguimiento__c (before insert, before update) {
         );
     }
 
-    /* 3 ▪ validación registro-por-registro */
     for (Seguimiento__c seg : Trigger.new) {
 
         if (seg.Contacto__c == null ||
@@ -36,7 +33,6 @@ trigger SeguimientoLimit on Seguimiento__c (before insert, before update) {
         Integer actuales = pendientesPorContacto.get(seg.Contacto__c);
         if (actuales == null) actuales = 0;
 
-        /* +1 porque el registro en curso aún no está contado */
         if (actuales + 1 > 5) {
             seg.addError(
                 'Este contacto ya tiene 5 tareas en "Pendiente". ' +

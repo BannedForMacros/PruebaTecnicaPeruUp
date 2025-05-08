@@ -1,13 +1,13 @@
 public with sharing class TaskStats {
 
     /**
-     * Devuelve:  { total: Integer, done: Integer }
+
      * @param contactId  Id del Contacto
      */
     @AuraEnabled(cacheable=true)
     public static Map<String,Integer> totales(Id contactId) {
 
-        // --- Total de tareas (Task.WhoId = Contact) ---
+
         Integer total = [
             SELECT COUNT()
               FROM Task
@@ -15,7 +15,7 @@ public with sharing class TaskStats {
                AND IsDeleted = FALSE
         ];
 
-        // --- Tareas completadas (Status = 'Completed') ---
+
         Integer done  = [
             SELECT COUNT()
               FROM Task
