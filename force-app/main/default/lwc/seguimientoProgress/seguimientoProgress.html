@@ -1,0 +1,14 @@
+<template>
+    <lightning-card title="Avance de Seguimientos Del Contacto">
+        <div class="slds-var-m-around_medium">
+            <lightning-progress-bar
+                value={percentage}
+                size="large"
+                variant="base">
+            </lightning-progress-bar>
+            <p class="slds-var-m-top_small slds-text-body_regular">
+                {completadas}/{total} completadas — {percentage}%
+            </p>
+        </div>
+    </lightning-card>
+</template>

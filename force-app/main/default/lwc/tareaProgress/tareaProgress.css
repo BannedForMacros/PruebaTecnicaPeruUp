@@ -1,0 +1,6 @@
+.bar {
+    background:#d8d8d8;height:10px;border-radius:4px;
+}
+.fill {
+    background:#0070d2;height:100%;border-radius:4px;transition:width .4s ease;
+}
